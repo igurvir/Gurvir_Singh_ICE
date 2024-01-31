@@ -10,60 +10,46 @@ import java.util.Scanner;
  * for the match to the user's card. To be used as starting code in ICE 1
  * @author srinivsi
  */
+import java.util.Scanner;
+
 public class CardTrick {
-    
-    public static void main(String[] args)
-    {
+
+    public static void main(String[] args) {
         Card[] magicHand = new Card[7];
-        
+
+        // Fill magicHand with random cards
         for (int i = 0; i < magicHand.length; i++) {
             Card c = new Card();
-            c.setValue(generateRandomValue());
-            c.setSuit(Card.SUITS[generateRandomNumber(0, 3)]);
+            c.setValue((int) (Math.random() * 13) + 1);
+            c.setSuit(Card.SUITS[(int) (Math.random() * 4)]);
             magicHand[i] = c;
         }
-        Card luckyCard = new Card();
-        luckyCard.setValue(2);
-        luckyCard.setSuit("Clubs");
-        magicHand[magicHand.length - 1] = luckyCard;
+
+      
+
         
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter your card value: ");
+        System.out.print("Enter a card value (1-13): ");
         int userValue = scanner.nextInt();
-        System.out.print("Enter your card suit (0-3): ");
+
+        System.out.print("Enter a suit (0-3 where 0-Hearts, 1=Diamonds, 2=Clubs, 3=Spades): ");
         int userSuitIndex = scanner.nextInt();
+        String userSuit = Card.SUITS[userSuitIndex];
+
         
-        Card userCard = new Card();
-        userCard.setValue(userValue);
-        userCard.setSuit(Card.SUITS[userSuitIndex]);
-        
-          boolean foundMatch = false;
+        boolean found = false;
         for (Card card : magicHand) {
-            if (card.equals(userCard)) {
-                foundMatch = true;
+            if (card.getValue() == userValue && card.getSuit().equals(userSuit)) {
+                found = true;
                 break;
             }
         }
-        
-          if (foundMatch) {
-            System.out.println("Congratulations! You found a match in the magic hand.");
-        } else {
-            System.out.println("Sorry, no match found in the magic hand.");
-        }
-    
-        
-        //insert code to ask the user for Card value and suit, create their card
-        // and search magicHand here
-        //Then report the result here
-        // add one luckcard hard code 2,clubs
-    }
-     private static int generateRandomNumber(int min, int max) {
-        return (int) (Math.random() * (max - min + 1) + min);
-    }
-     
-      private static int generateRandomValue() {
-        return generateRandomNumber(1, 13);
-    }
 
-    
+        // result
+        if (found) {
+            System.out.println("Congratulations, your card is in the magic hand!");
+        } else {
+            System.out.println("Sorry, your card is not in the magic hand.");
+        }
+    }
 }
