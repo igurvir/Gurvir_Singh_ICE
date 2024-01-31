@@ -24,6 +24,16 @@ public class CardTrick {
             c.setSuit(Card.SUITS[(int) (Math.random() * 4)]);
             magicHand[i] = c;
         }
+        //adding hardcored luckyCard
+        Card luckyCard = new Card();
+        luckyCard.setValue(2);
+        luckyCard.setSuit("Clubs");
+        magicHand[3] = luckyCard; //replacing it for a card in the deck
+
+        // Print the magicHand
+        for (Card card : magicHand) {
+            System.out.println(card.getSuit() + " " + card.getValue());
+        }
 
       
 
